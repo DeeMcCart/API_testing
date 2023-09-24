@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <p id="content">
+
+        </p>
+    </div> 
+
+    <script>
+        fetch("https://opendata.tailte.ie/api/Property/GetProperties?Fields=LocalAuthority%2CRateableValuation%2CPropertyNumber%2CAddress%2CEircode&LocalAuthority=CARLOW%20COUNTY%20COUNCIL&CategorySelected=OFFICE&Format=json&Download=false")
+            .then(response => response.json()) // or .text()
+            .then(data => {
+                console.log('data is :${data}');
+                var stringy=""
+                for (const i in data) 
+                {
+                    for (const j in i) 
+                    {
+                    stringy += 
+                    'Local Authority : ' + data[i, j].LocalAuthority + 
+                    ' #: '  + data[i, j].PropertyNumber + '  ' + 
+                    ' Address: '  + data[i, j].Address1 + ',' + data[i, j].Address2 + ',' + data[i, j].Address3 + ',' +
+                    '  Eircode: '  + data[i, j].Eircode + ' ' + '\n\n';
+                    } 
+                }
+                document.getElementById("content").innerText = stringy;
+            });
+    </script>
+</body>
+</html>
